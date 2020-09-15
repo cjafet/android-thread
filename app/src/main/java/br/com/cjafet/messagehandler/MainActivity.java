@@ -2,6 +2,7 @@ package br.com.cjafet.messagehandler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -11,7 +12,9 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String KEY_SONG = "song";
     private Button mDownloadButton;
+    private Button mServiceButton;
 
 
     @Override
@@ -19,12 +22,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         DownloadThread thread = new DownloadThread();
         thread.setName("DownloadThread");
         thread.start();
 
         mDownloadButton = findViewById(R.id.downloadButton);
+        mServiceButton = findViewById(R.id.serviceButton);
+
+        mServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (String song : PlayList.songs ) {
+                    Log.d(TAG, song);
+                    Intent intent = new Intent(MainActivity.this, DownloadService.class);
+                    intent.putExtra(KEY_SONG, song);
+                    startService(intent);
+                }
+            }
+        });
 
         mDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
