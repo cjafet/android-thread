@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 for (String song : PlayList.songs ) {
                     Log.d(TAG, song);
-                    Intent intent = new Intent(MainActivity.this, DownloadService.class);
+                    //Intent intent = new Intent(MainActivity.this, DownloadService.class);
+                    Intent intent = new Intent(MainActivity.this, DownloadIntentService.class);
                     intent.putExtra(KEY_SONG, song);
                     startService(intent);
                 }

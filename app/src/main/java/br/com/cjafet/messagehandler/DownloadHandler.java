@@ -15,6 +15,7 @@ public class DownloadHandler extends Handler {
         downloadSong(msg.obj.toString());
 
         if (mService != null) {
+            Log.d(TAG, "stoping service " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
 
